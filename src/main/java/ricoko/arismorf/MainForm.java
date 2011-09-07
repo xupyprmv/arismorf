@@ -34,6 +34,8 @@ public class MainForm extends javax.swing.JFrame {
         action = new javax.swing.JLabel();
         mainMenu = new javax.swing.JMenuBar();
         convAtoMButton = new javax.swing.JMenu();
+        importARISMO = new javax.swing.JMenuItem();
+        exportMORF = new javax.swing.JMenuItem();
         separator1 = new javax.swing.JMenu();
         convMtoAButton = new javax.swing.JMenu();
         separator2 = new javax.swing.JMenu();
@@ -46,13 +48,13 @@ public class MainForm extends javax.swing.JFrame {
         logTextArea.setRows(5);
         logScrollPane.setViewportView(logTextArea);
 
-        logLabel.setFont(new java.awt.Font("DejaVu Sans", 1, 13)); // NOI18N
+        logLabel.setFont(new java.awt.Font("DejaVu Sans", 1, 13));
         logLabel.setText("Журнал :");
 
-        actionLabel.setFont(new java.awt.Font("DejaVu Sans", 1, 13)); // NOI18N
+        actionLabel.setFont(new java.awt.Font("DejaVu Sans", 1, 13));
         actionLabel.setText("Выполняемое действие :");
 
-        progressLabel.setFont(new java.awt.Font("DejaVu Sans", 1, 13)); // NOI18N
+        progressLabel.setFont(new java.awt.Font("DejaVu Sans", 1, 13));
         progressLabel.setText("Прогресс выполнения :");
 
         action.setText("-");
@@ -60,6 +62,18 @@ public class MainForm extends javax.swing.JFrame {
         mainMenu.setName("MainMenu"); // NOI18N
 
         convAtoMButton.setText("АРИСМО -> МОРФ");
+
+        importARISMO.setText("Импорт из АРИСМО (xml)");
+        convAtoMButton.add(importARISMO);
+
+        exportMORF.setText("Экспорт в МОРФ (xls)");
+        exportMORF.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exportMORFMouseClicked(evt);
+            }
+        });
+        convAtoMButton.add(exportMORF);
+
         mainMenu.add(convAtoMButton);
 
         separator1.setText("|");
@@ -114,6 +128,10 @@ public class MainForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+private void exportMORFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exportMORFMouseClicked
+    
+}//GEN-LAST:event_exportMORFMouseClicked
+
     /**
     * @param args the command line arguments
     */
@@ -130,7 +148,9 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel actionLabel;
     private javax.swing.JMenu convAtoMButton;
     private javax.swing.JMenu convMtoAButton;
+    private javax.swing.JMenuItem exportMORF;
     private javax.swing.JMenu helpButton;
+    private javax.swing.JMenuItem importARISMO;
     private javax.swing.JLabel logLabel;
     private javax.swing.JScrollPane logScrollPane;
     private javax.swing.JTextArea logTextArea;

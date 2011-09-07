@@ -11,6 +11,21 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x410;&#x420;&#x418;&#x421;&#x41c;&#x41e; -&gt; &#x41c;&#x41e;&#x420;&#x424;"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="importARISMO">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#x418;&#x43c;&#x43f;&#x43e;&#x440;&#x442; &#x438;&#x437; &#x410;&#x420;&#x418;&#x421;&#x41c;&#x41e; (xml)"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="exportMORF">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#x42d;&#x43a;&#x441;&#x43f;&#x43e;&#x440;&#x442; &#x432; &#x41c;&#x41e;&#x420;&#x424; (xls)"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="exportMORFMouseClicked"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="separator1">
           <Properties>
