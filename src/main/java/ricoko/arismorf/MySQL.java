@@ -27,7 +27,7 @@ public class MySQL {
                 dbConnection = DriverManager.getConnection("jdbc:mysql://localhost:3307/", "root", "");
                 Statement statement = dbConnection.createStatement();
                 statement.execute("CREATE DATABASE IF NOT EXISTS arismorf;");
-                statement.execute("SET NAMES cp1251;");
+                statement.execute("SET NAMES UTF-8;");
                 statement.execute("USE arismorf;");
                 statement.execute("CREATE TABLE IF NOT EXISTS sch6_class ("
                         + "SYS_FLDORDER VARCHAR(100),"
