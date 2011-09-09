@@ -14,7 +14,7 @@ public class ExcelTest {
         try {
             ee.setValue("76rik", 0, "X", 29, "111!!! Ку");
             ee.setValue("76rik", 2, "P", 22, 123);
-            ee.saveExportedWorkBooks();
+            ee.saveExportedWorkBooks(null);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -16,6 +16,10 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="&#x418;&#x43c;&#x43f;&#x43e;&#x440;&#x442; &#x438;&#x437; &#x410;&#x420;&#x418;&#x421;&#x41c;&#x41e; (xml)"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="importARISMOMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="importARISMOActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="exportMORF">
               <Properties>
@@ -23,6 +27,7 @@
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="exportMORFMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportMORFActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -75,14 +80,10 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="logScrollPane" alignment="0" pref="774" max="32767" attributes="0"/>
-                  <Component id="actionLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="action" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="progressLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="progressBar" alignment="0" pref="774" max="32767" attributes="0"/>
                   <Component id="logLabel" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -93,18 +94,10 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="actionLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="action" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="progressLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="progressBar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="logLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="logScrollPane" pref="414" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -120,6 +113,7 @@
         <Component class="javax.swing.JTextArea" name="logTextArea">
           <Properties>
             <Property name="columns" type="int" value="20"/>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="rows" type="int" value="5"/>
           </Properties>
         </Component>
@@ -131,29 +125,6 @@
           <Font name="DejaVu Sans" size="13" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="&#x416;&#x443;&#x440;&#x43d;&#x430;&#x43b; :"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="actionLabel">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="DejaVu Sans" size="13" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="&#x412;&#x44b;&#x43f;&#x43e;&#x43b;&#x43d;&#x44f;&#x435;&#x43c;&#x43e;&#x435; &#x434;&#x435;&#x439;&#x441;&#x442;&#x432;&#x438;&#x435; :"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JProgressBar" name="progressBar">
-    </Component>
-    <Component class="javax.swing.JLabel" name="progressLabel">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="DejaVu Sans" size="13" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="&#x41f;&#x440;&#x43e;&#x433;&#x440;&#x435;&#x441;&#x441; &#x432;&#x44b;&#x43f;&#x43e;&#x43b;&#x43d;&#x435;&#x43d;&#x438;&#x44f; :"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="action">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="-"/>
       </Properties>
     </Component>
   </SubComponents>

@@ -29,12 +29,7 @@ public class MySQL {
                 statement.execute("CREATE DATABASE IF NOT EXISTS arismorf;");
                 statement.execute("SET NAMES cp1251;");
                 statement.execute("USE arismorf;");
-                statement.execute("CREATE TABLE IF NOT EXISTS sch6_class ("
-                        + "SYS_FLDORDER VARCHAR(100),"
-                        + "SYS_GUID VARCHAR(100),"
-                        + "SYS_STATE VARCHAR(100),"
-                        + "SYS_REV VARCHAR(100),"
-                        + "SYS_CREATED VARCHAR(100));");
+                DatabaseStructure.getInstance().createAllTables(dbConnection);
             }
             return dbConnection;
     }

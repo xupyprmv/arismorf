@@ -3,14 +3,19 @@
  *
  * Основная форма приложения
  */
-
 package ricoko.arismorf;
+
+import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 
 /**
  * @author maksimenkov (xupypr@xupypr.com)
  */
 public class MainForm extends javax.swing.JFrame {
 
+    public static final String YEAR = "2010";
+    
     /** Creates new form MainForm */
     public MainForm() {
         initComponents();
@@ -28,10 +33,6 @@ public class MainForm extends javax.swing.JFrame {
         logScrollPane = new javax.swing.JScrollPane();
         logTextArea = new javax.swing.JTextArea();
         logLabel = new javax.swing.JLabel();
-        actionLabel = new javax.swing.JLabel();
-        progressBar = new javax.swing.JProgressBar();
-        progressLabel = new javax.swing.JLabel();
-        action = new javax.swing.JLabel();
         mainMenu = new javax.swing.JMenuBar();
         convAtoMButton = new javax.swing.JMenu();
         importARISMO = new javax.swing.JMenuItem();
@@ -45,31 +46,39 @@ public class MainForm extends javax.swing.JFrame {
         setTitle("Конвертатор: АРИСМО <-> МОРФ");
 
         logTextArea.setColumns(20);
+        logTextArea.setEditable(false);
         logTextArea.setRows(5);
         logScrollPane.setViewportView(logTextArea);
 
-        logLabel.setFont(new java.awt.Font("DejaVu Sans", 1, 13));
+        logLabel.setFont(new java.awt.Font("DejaVu Sans", 1, 13)); // NOI18N
         logLabel.setText("Журнал :");
-
-        actionLabel.setFont(new java.awt.Font("DejaVu Sans", 1, 13));
-        actionLabel.setText("Выполняемое действие :");
-
-        progressLabel.setFont(new java.awt.Font("DejaVu Sans", 1, 13));
-        progressLabel.setText("Прогресс выполнения :");
-
-        action.setText("-");
 
         mainMenu.setName("MainMenu"); // NOI18N
 
         convAtoMButton.setText("АРИСМО -> МОРФ");
 
         importARISMO.setText("Импорт из АРИСМО (xml)");
+        importARISMO.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                importARISMOMouseClicked(evt);
+            }
+        });
+        importARISMO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                importARISMOActionPerformed(evt);
+            }
+        });
         convAtoMButton.add(importARISMO);
 
         exportMORF.setText("Экспорт в МОРФ (xls)");
         exportMORF.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 exportMORFMouseClicked(evt);
+            }
+        });
+        exportMORF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportMORFActionPerformed(evt);
             }
         });
         convAtoMButton.add(exportMORF);
@@ -96,14 +105,10 @@ public class MainForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(logScrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 774, Short.MAX_VALUE)
-                    .addComponent(actionLabel, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(action, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(progressLabel, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(progressBar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 774, Short.MAX_VALUE)
                     .addComponent(logLabel, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
@@ -111,14 +116,6 @@ public class MainForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(actionLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(action)
-                .addGap(18, 18, 18)
-                .addComponent(progressLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(logLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(logScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
@@ -129,23 +126,66 @@ public class MainForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void exportMORFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exportMORFMouseClicked
-    
 }//GEN-LAST:event_exportMORFMouseClicked
 
+private void importARISMOMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_importARISMOMouseClicked
+}//GEN-LAST:event_importARISMOMouseClicked
+
+private void importARISMOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importARISMOActionPerformed
+    final JFrame jf = this;
+    Thread t = new Thread(new Runnable() {
+
+        @Override
+        public void run() {
+            try {
+                JFileChooser fc = new JFileChooser();
+                int returnVal = fc.showOpenDialog(jf);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    File file = fc.getSelectedFile();
+                    XMLImport.getInstance(logTextArea).parseDocument(file);
+                }
+            } catch (Exception e) {
+                logTextArea.append("Ошибка импорта: " + e.getMessage() + "\n");
+                for (StackTraceElement ste : e.getStackTrace()) {
+                    logTextArea.append(ste.toString() + "\n");
+                }
+            }
+        }
+    });
+    t.start();
+}//GEN-LAST:event_importARISMOActionPerformed
+
+private void exportMORFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportMORFActionPerformed
+    Thread t = new Thread(new Runnable() {
+
+        @Override
+        public void run() {
+            try {
+                Extractor.extract(MySQL.getConnection(), logTextArea);
+            } catch (Exception e) {
+                logTextArea.append("Ошибка экспорта: " + e.getMessage() + "\n");
+                for (StackTraceElement ste : e.getStackTrace()) {
+                    logTextArea.append(ste.toString() + "\n");
+                }
+            }
+        }
+    });
+    t.start();
+}//GEN-LAST:event_exportMORFActionPerformed
+
     /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) throws Exception {
+        MySQL.startMySQL();
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new MainForm().setVisible(true);
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel action;
-    private javax.swing.JLabel actionLabel;
     private javax.swing.JMenu convAtoMButton;
     private javax.swing.JMenu convMtoAButton;
     private javax.swing.JMenuItem exportMORF;
@@ -155,10 +195,7 @@ private void exportMORFMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
     private javax.swing.JScrollPane logScrollPane;
     private javax.swing.JTextArea logTextArea;
     private javax.swing.JMenuBar mainMenu;
-    private javax.swing.JProgressBar progressBar;
-    private javax.swing.JLabel progressLabel;
     private javax.swing.JMenu separator1;
     private javax.swing.JMenu separator2;
     // End of variables declaration//GEN-END:variables
-
 }
