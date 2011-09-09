@@ -1,5 +1,6 @@
 package ricoko.arismorf;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -92,5 +93,8 @@ public class Extractor {
         if (log != null) {
             log.append("Экпорт завершен. Результаты экспорта располагаются в папке export.\n");
         }
+        if (Desktop.isDesktopSupported()) {
+            Desktop.getDesktop().open(new File("export"));
+	}
     }
 }
