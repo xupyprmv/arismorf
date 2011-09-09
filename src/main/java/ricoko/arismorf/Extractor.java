@@ -42,10 +42,10 @@ public class Extractor {
         }
         ResultSet[] rs = new ResultSet[20];
         Statement[] s = new Statement[20];
-        for (int i=0; i<20; i++) {
+        for (int i = 0; i < 20; i++) {
             s[i] = c.createStatement();
         }
-        
+
         // ФОРМА ОШ 1
 
         // РАЗДЕЛ 3
@@ -56,14 +56,20 @@ public class Extractor {
         rs[3] = s[3].executeQuery(getSQLFromFile("./resources/sql/osh1/3/grades_complete_5-9.txt"));
         rs[3].first();
         rs[4] = s[4].executeQuery(getSQLFromFile("./resources/sql/osh1/3/podgot_class.txt"));
-        rs[4].first(); 
-        
+        rs[4].first();
+
         ee.setValue("osh1", 4, "P", 21, rs[1].getInt(1) + rs[2].getInt(1) + rs[4].getInt(1));
         ee.setValue("osh1", 4, "P", 22, rs[1].getInt(2) + rs[3].getInt(1));
         ee.setValue("osh1", 4, "P", 23, rs[1].getInt(3));
         ee.setValue("osh1", 4, "Q", 21, rs[1].getInt(4));
         ee.setValue("osh1", 4, "Q", 22, rs[1].getInt(5));
         ee.setValue("osh1", 4, "Q", 23, rs[1].getInt(6));
+        ee.setValue("osh1", 4, "P", 24, rs[1].getInt(1) + rs[2].getInt(1) + rs[4].getInt(1) + rs[1].getInt(2) + rs[3].getInt(1) + rs[1].getInt(3)); // сумма первогостолбца
+        ee.setValue("osh1", 4, "Q", 24, rs[1].getInt(4) + rs[1].getInt(5) + rs[1].getInt(6));
+        
+        if (log != null) {
+            log.append("Выполнено 7/9.\n");
+        }
         
         rs[1] = s[1].executeQuery(getSQLFromFile("./resources/sql/osh1/3/grades_complete_less14.txt"));
         rs[1].first();
@@ -73,10 +79,10 @@ public class Extractor {
         rs[3].first();
         rs[4] = s[4].executeQuery(getSQLFromFile("./resources/sql/osh1/3/grades_less_25.txt"));
         rs[4].first();
-        //ee.setValue("osh1", 4, "Q", 23, rs[1].getInt(1));
+        ee.setValue("osh1", 4, "P", 25, rs[1].getInt(1) + rs[2].getInt(1) + rs[3].getInt(1) + rs[4].getInt(1));
 
         if (log != null) {
-            log.append("Выполнено 6/9.\n");
+            log.append("Выполнено 9/9.\n");
         }
 
 
