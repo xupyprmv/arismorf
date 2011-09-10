@@ -12,7 +12,7 @@ public class XMLTest {
     public static void main(String[] args) {
         try {
             MySQL.startMySQL(); 
-            XMLImport i = XMLImport.getInstance(null);
+            XMLImport i = XMLImport.getInstance(null, true);
             i.parseDocument(new File("./arismo/openschool_07.09.2011.xml")); 
             Connection dbConnection = MySQL.getConnection();
             Statement statement = dbConnection.createStatement();

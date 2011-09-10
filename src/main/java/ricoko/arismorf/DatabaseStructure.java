@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JTextArea;
+import org.xml.sax.Attributes;
 
 /**
  * Класс описывыающий структуру данных
@@ -17,6 +19,7 @@ import java.util.Map;
 public class DatabaseStructure {
 
     public static enum FieldType {
+
         VARCHAR, BIGINT, DOUBLE, BLOB, DATETIME, DATE
     }
 
@@ -40,7 +43,7 @@ public class DatabaseStructure {
             } else if (dType.equals("String")) {
                 this.type = FieldType.VARCHAR;
             } else if (dType.equals("Lookup")) {
-                this.type = FieldType.BIGINT;
+                this.type = FieldType.VARCHAR;
             } else if (dType.equals("Memo")) {
                 this.type = FieldType.BLOB;
             } else if (dType.equals("Numeric")) {
@@ -58,20 +61,18 @@ public class DatabaseStructure {
             } else if (dType.equals("File")) {
                 // Игнорим файлы
             } else {
-                throw new IllegalStateException("Unknown field type: "+dType);
+                throw new IllegalStateException("Unknown field type: " + dType);
             }
         }
     }
-    
     public Map<String, List<Field>> structure = new HashMap<String, List<Field>>();
     public Map<String, String> tableGUIDMap = new HashMap<String, String>();
-    
+    public Map<String, String> indexGUIDMap = new HashMap<String, String>();
     public boolean initialized = false;
     public SimpleDateFormat arismoSDF = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
     public SimpleDateFormat mysqlSDF = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
     public SimpleDateFormat tarismoSDF = new SimpleDateFormat("dd.MM.yyyy");
     public SimpleDateFormat tmysqlSDF = new SimpleDateFormat("yyyy-MM-dd");
-    
     private static DatabaseStructure instance;
 
     private DatabaseStructure() {
@@ -80,51 +81,23 @@ public class DatabaseStructure {
     public static DatabaseStructure getInstance() {
         if (instance == null) {
             instance = new DatabaseStructure();
-        } 
+        }
         return instance;
+    }
+
+    public static void dispose() {
+        instance = null;
     }
 
     public String getCreateScript(String tableName) {
         StringBuilder result = new StringBuilder();
-        result.append("CREATE TABLE IF NOT EXISTS `").append(tableName).append("` ("); 
+        result.append("CREATE TABLE IF NOT EXISTS `").append(tableName).append("` (");
         boolean first = true;
         for (Field f : structure.get(tableName)) {
-            result.append((first)?"`":",`").append(f.name).append("` ").append((f.type.equals(FieldType.VARCHAR))?"VARCHAR(255)":f.type);            
-            result.append(("SYS_GUID".equals(f.name))?" PRIMARY KEY":"");
-            first = false;
-        }
-        result.append(");");
-        return result.toString();
-    }
-    
-    public String getInsertScript(String tableName, Map<String, String> values) throws ParseException {
-        StringBuilder result = new StringBuilder();
-        result.append("REPLACE INTO ").append(tableName).append(" (");
-        boolean first = true;
-        for (Field f : structure.get(tableName)) {
-            result.append((first)?"`":",`").append(f.name).append("`");
-            first = false;
-        }
-        first = true;
-        result.append(" ) VALUES (");
-        for (Field f : structure.get(tableName)) {
-            if (f.type.equals(FieldType.DATETIME) || f.type.equals(FieldType.DATE)) {
-                String date = values.get(f.name);
-                if (date==null || date.equals("")) {
-                    result.append((first)?"":",").append("NULL");
-                } else {
-                    if (f.type.equals(FieldType.DATETIME)) {
-                        date = mysqlSDF.format(arismoSDF.parse(date));
-                    } else {
-                        date = tmysqlSDF.format(tarismoSDF.parse(date));
-                    }
-                    result.append((first)?"":",").append("'").append(date).append("'");
-                }
-            } else if (f.type.equals(FieldType.VARCHAR) || f.type.equals(FieldType.BLOB)) {
-                f.name = f.name.replace("'", "\"");
-                result.append((first)?"":",").append("'").append(values.get(f.name)).append("'");
-            } else {
-                result.append((first)?"":",").append((values.get(f.name)==null || values.get(f.name).equals(""))?"NULL":values.get(f.name));
+            result.append((first) ? "`" : ",`").append(f.name).append("` ").append((f.type.equals(FieldType.VARCHAR)) ? "VARCHAR(255)" : f.type);
+            result.append(("SYS_GUID".equals(f.name)) ? " PRIMARY KEY" : "");
+            if (f.index) {
+                result.append(", INDEX ").append(tableName).append("_").append(f.name).append("_I").append(" (").append(f.name).append(")");
             }
             first = false;
         }
@@ -132,11 +105,55 @@ public class DatabaseStructure {
         return result.toString();
     }
 
-    public void createAllTables(Connection connection) throws SQLException {
-        for (String tableName:structure.keySet()) {
+    public String getInsertScript(String tableName, Attributes values) throws ParseException {
+        StringBuilder result = new StringBuilder();
+        result.append("REPLACE INTO ").append(tableName).append(" (");
+        boolean first = true;
+        for (Field f : structure.get(tableName)) {
+            result.append((first) ? "`" : ",`").append(f.name).append("`");
+            first = false;
+        }
+        first = true;
+        result.append(" ) VALUES (");
+        for (Field f : structure.get(tableName)) {
+            if (values.getValue(f.name) == null || values.getValue(f.name).equals("")) {
+                result.append((first) ? "" : ",").append("NULL");
+            } else if (f.type.equals(FieldType.DATETIME) || f.type.equals(FieldType.DATE)) {
+                String date = values.getValue(f.name);
+                if (f.type.equals(FieldType.DATETIME)) {
+                    date = mysqlSDF.format(arismoSDF.parse(date));
+                } else {
+                    date = tmysqlSDF.format(tarismoSDF.parse(date));
+                }
+                result.append((first) ? "" : ",").append("'").append(date).append("'");
+
+            } else if (f.type.equals(FieldType.VARCHAR) || f.type.equals(FieldType.BLOB)) {
+                String text = values.getValue(f.name).replace("'", "\"").replace("\\", "\\\\");
+                result.append((first) ? "" : ",").append("'").append(text).append("'");
+            } else {
+                result.append((first) ? "" : ",").append((values.getValue(f.name) == null || values.getValue(f.name).equals("")) ? "NULL" : values.getValue(f.name));
+            }
+            first = false;
+        }
+        result.append(");");
+        return result.toString();
+    }
+
+    public void createAllTables(Connection connection, JTextArea log) throws SQLException {
+        initialized = true;
+        int counter = 0;
+        for (String tableName : structure.keySet()) {
+            if (log != null && counter % 10 == 0) {
+                log.append("Создано таблиц : " + counter + "\n");
+            }
+            counter++;
             Statement statement = connection.createStatement();
             statement.execute(getCreateScript(tableName));
-            statement.close();        
+            statement.close();
+        }
+        if (log != null && counter != 0) {
+            log.append("Создано таблиц : " + counter + "\n");
+            counter = 0;
         }
     }
 }

@@ -116,6 +116,11 @@ public class MainForm extends javax.swing.JFrame {
         databaseButton.setText("База данных");
 
         reloadDictionariesButton.setText("Обновить справочники");
+        reloadDictionariesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reloadDictionariesButtonActionPerformed(evt);
+            }
+        });
         databaseButton.add(reloadDictionariesButton);
 
         refreshDatabaseButton.setText("Очистить базу");
@@ -178,7 +183,7 @@ private void importARISMOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
                 int returnVal = fc.showOpenDialog(jf);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     File file = fc.getSelectedFile();
-                    XMLImport.getInstance(logTextArea).parseDocument(file);
+                    XMLImport.getInstance(logTextArea, true).parseDocument(file);
                 }
             } catch (Exception e) {
                 logTextArea.append("Ошибка импорта: " + e.getMessage() + "\n");
@@ -229,6 +234,13 @@ private void refreshDatabaseButtonActionPerformed(java.awt.event.ActionEvent evt
                 statement.execute("USE arismorf;");
                 logTextArea.append("База данных очищена \n");
                 statement.close();
+                DatabaseStructure.dispose();
+                logTextArea.append("Восстанавливаю структуру таблиц \n");
+                XMLImport.getInstance(logTextArea, false).parseInit();
+                logTextArea.append("Структура таблиц восстановлена \n");
+                logTextArea.append("Восстанавливаю справочники \n");
+                XMLImport.getInstance(logTextArea, false).parseDocument(new File("./resources/db/dirs-openschool.xml"));
+                logTextArea.append("Справочники восстановлены \n");
             } catch (Exception e) {
                 logTextArea.append("Ошибка: " + e.getMessage() + "\n");
                 for (StackTraceElement ste : e.getStackTrace()) {
@@ -239,6 +251,10 @@ private void refreshDatabaseButtonActionPerformed(java.awt.event.ActionEvent evt
     });
     t.start();
 }//GEN-LAST:event_refreshDatabaseButtonActionPerformed
+
+private void reloadDictionariesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reloadDictionariesButtonActionPerformed
+    importARISMOActionPerformed(evt);
+}//GEN-LAST:event_reloadDictionariesButtonActionPerformed
 
     /**
      * @param args the command line arguments
