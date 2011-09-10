@@ -70,7 +70,10 @@ public class XMLImport extends DefaultHandler {
             }
             counter = 0;
         }
-        instance.log.append("Удаление записей не относящихся к году: " + MainForm.YEAR + "\n");
+        if (instance.log!=null) {
+            instance.log.append("Удаление записей не относящихся к году: " + MainForm.YEAR + "\n");
+        }
+        statement.execute("DELETE FROM EGEEXTPARTICIPANTS WHERE `SYS_GUIDFK` IN (SELECT SYS_GUID FROM PARTICIPANTS WHERE `SYS_GUIDFK` NOT IN (SELECT `SYS_GUID` FROM GRADES));");
         statement.execute("DELETE FROM PARTICIPANTS WHERE `SYS_GUIDFK` NOT IN (SELECT `SYS_GUID` FROM GRADES);");
 //        statement.execute("DELETE FROM PARTICIPANTS LEFT JOIN GRADES ON (PARTICIPANTS.SYS_GUIDFK = GRADES.SYS_GUID) WHERE (GRADES.SYS_GUID IS NULL)");
 
@@ -138,7 +141,10 @@ public class XMLImport extends DefaultHandler {
             for (String tableName : dbs.structure.keySet()) {
                 if (qName.equalsIgnoreCase(tableName)) {
                     // Импорт записей
-                    if (dictionaries || tableName.equals("PARTICIPANTS") || (attributes.getValue("SYS_GUIDFK") != null && attributes.getValue("SYS_GUIDFK").startsWith(MainForm.YEAR))
+                    if (dictionaries 
+                            || tableName.equals("PARTICIPANTS")
+                            || tableName.equals("EGEEXTPARTICIPANTS")
+                            || (attributes.getValue("SYS_GUIDFK") != null && attributes.getValue("SYS_GUIDFK").startsWith(MainForm.YEAR))
                             || (attributes.getValue("SYS_GUID") != null && attributes.getValue("SYS_GUID").startsWith(MainForm.YEAR))) {
                         try {
                             String sql = dbs.getInsertScript(qName, attributes);

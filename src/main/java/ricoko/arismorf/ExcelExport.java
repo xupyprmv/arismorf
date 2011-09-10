@@ -3,10 +3,12 @@
  */
 package ricoko.arismorf;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.MappedByteBuffer;
@@ -62,7 +64,7 @@ public class ExcelExport {
     public void saveExportedWorkBooks(JTextArea log) throws FileNotFoundException, IOException {
         for (Entry<String, Workbook> e : loadedXLT.entrySet()) {
             if (log != null) {
-                log.append("Экпортирую файл шаблона МОРФ: "+e.getKey()+"\n");
+                log.append("Экпортирую файл шаблона МОРФ: " + e.getKey() + "\n");
             }
             FileOutputStream fileOut = new FileOutputStream("./export/" + e.getKey() + ".xlt");
             e.getValue().write(fileOut);
@@ -107,17 +109,15 @@ public class ExcelExport {
         }
         return result;
     }
-    
+
     public static String getSQLFromFile(String path) throws IOException {
-        FileInputStream stream = new FileInputStream(new File(path));
-        try {
-            FileChannel fc = stream.getChannel();
-            MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
-            fc.close();
-            stream.close();
-            return Charset.defaultCharset().decode(bb).toString();
-        } finally {
-            stream.close();
+        StringBuilder contents = new StringBuilder();
+        BufferedReader reader = new BufferedReader(new FileReader(path));
+        String text = null;
+        while ((text = reader.readLine()) != null) {
+            contents.append(text).append(System.getProperty("line.separator"));
         }
+        reader.close();
+        return contents.toString();
     }
 }
