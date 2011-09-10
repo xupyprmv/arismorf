@@ -93,6 +93,9 @@ public class Extractor {
         if (log != null) {
             log.append("Экпорт завершен. Результаты экспорта располагаются в папке export.\n");
         }
+        for (int i = 0; i < 20; i++) {
+            s[i].close();
+        }
         if (Desktop.isDesktopSupported()) {
             Desktop.getDesktop().open(new File("export"));
 	}

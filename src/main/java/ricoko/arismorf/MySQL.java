@@ -29,7 +29,8 @@ public class MySQL {
                 statement.execute("CREATE DATABASE IF NOT EXISTS arismorf;");
                 statement.execute("SET NAMES cp1251;"); // TODO: сделать все MEMO BLOB'ами
                 statement.execute("USE arismorf;");
-                DatabaseStructure.getInstance().createAllTables(dbConnection);
+                statement.close();
+                //DatabaseStructure.getInstance().createAllTables(dbConnection);
             }
             return dbConnection;
     }

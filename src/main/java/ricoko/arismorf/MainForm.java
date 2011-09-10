@@ -6,8 +6,11 @@
 package ricoko.arismorf;
 
 import java.io.File;
+import java.sql.Connection;
+import java.sql.Statement;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.text.DefaultCaret;
 
 /**
  * @author maksimenkov (xupypr@xupypr.com)
@@ -15,7 +18,7 @@ import javax.swing.JFrame;
 public class MainForm extends javax.swing.JFrame {
 
     public static final String YEAR = "2010";
-    
+
     /** Creates new form MainForm */
     public MainForm() {
         initComponents();
@@ -40,6 +43,10 @@ public class MainForm extends javax.swing.JFrame {
         separator1 = new javax.swing.JMenu();
         convMtoAButton = new javax.swing.JMenu();
         separator2 = new javax.swing.JMenu();
+        databaseButton = new javax.swing.JMenu();
+        reloadDictionariesButton = new javax.swing.JMenuItem();
+        refreshDatabaseButton = new javax.swing.JMenuItem();
+        separator3 = new javax.swing.JMenu();
         helpButton = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -48,7 +55,16 @@ public class MainForm extends javax.swing.JFrame {
         logTextArea.setColumns(20);
         logTextArea.setEditable(false);
         logTextArea.setRows(5);
+        logTextArea.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                logTextAreaInputMethodTextChanged(evt);
+            }
+        });
         logScrollPane.setViewportView(logTextArea);
+        DefaultCaret caret = (DefaultCaret)logTextArea.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 
         logLabel.setFont(new java.awt.Font("DejaVu Sans", 1, 13)); // NOI18N
         logLabel.setText("Журнал :");
@@ -90,11 +106,31 @@ public class MainForm extends javax.swing.JFrame {
         mainMenu.add(separator1);
 
         convMtoAButton.setText("МОРФ -> АРИСМО");
+        convMtoAButton.setEnabled(false);
         mainMenu.add(convMtoAButton);
 
         separator2.setText("|");
         separator2.setEnabled(false);
         mainMenu.add(separator2);
+
+        databaseButton.setText("База данных");
+
+        reloadDictionariesButton.setText("Обновить справочники");
+        databaseButton.add(reloadDictionariesButton);
+
+        refreshDatabaseButton.setText("Очистить базу");
+        refreshDatabaseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshDatabaseButtonActionPerformed(evt);
+            }
+        });
+        databaseButton.add(refreshDatabaseButton);
+
+        mainMenu.add(databaseButton);
+
+        separator3.setText("|");
+        separator3.setEnabled(false);
+        mainMenu.add(separator3);
 
         helpButton.setText("Помощь");
         mainMenu.add(helpButton);
@@ -173,6 +209,37 @@ private void exportMORFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     t.start();
 }//GEN-LAST:event_exportMORFActionPerformed
 
+private void logTextAreaInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_logTextAreaInputMethodTextChanged
+// TODO add your handling code here:
+}//GEN-LAST:event_logTextAreaInputMethodTextChanged
+
+private void refreshDatabaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshDatabaseButtonActionPerformed
+
+    final JFrame jf = this;
+    Thread t = new Thread(new Runnable() {
+
+        @Override
+        public void run() {
+            try {
+                Connection connection = MySQL.getConnection();
+                Statement statement = connection.createStatement();
+                logTextArea.append("Очищаю базу данных \n");
+                statement.execute("DROP DATABASE arismorf;");
+                statement.execute("CREATE DATABASE arismorf;");
+                statement.execute("USE arismorf;");
+                logTextArea.append("База данных очищена \n");
+                statement.close();
+            } catch (Exception e) {
+                logTextArea.append("Ошибка: " + e.getMessage() + "\n");
+                for (StackTraceElement ste : e.getStackTrace()) {
+                    logTextArea.append(ste.toString() + "\n");
+                }
+            }
+        }
+    });
+    t.start();
+}//GEN-LAST:event_refreshDatabaseButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -188,6 +255,7 @@ private void exportMORFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu convAtoMButton;
     private javax.swing.JMenu convMtoAButton;
+    private javax.swing.JMenu databaseButton;
     private javax.swing.JMenuItem exportMORF;
     private javax.swing.JMenu helpButton;
     private javax.swing.JMenuItem importARISMO;
@@ -195,7 +263,10 @@ private void exportMORFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JScrollPane logScrollPane;
     private javax.swing.JTextArea logTextArea;
     private javax.swing.JMenuBar mainMenu;
+    private javax.swing.JMenuItem refreshDatabaseButton;
+    private javax.swing.JMenuItem reloadDictionariesButton;
     private javax.swing.JMenu separator1;
     private javax.swing.JMenu separator2;
+    private javax.swing.JMenu separator3;
     // End of variables declaration//GEN-END:variables
 }

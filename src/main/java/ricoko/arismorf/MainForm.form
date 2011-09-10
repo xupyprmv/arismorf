@@ -1,6 +1,6 @@
 <?xml version="1.1" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="mainMenu">
       <Properties>
@@ -41,9 +41,36 @@
         <Menu class="javax.swing.JMenu" name="convMtoAButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x41c;&#x41e;&#x420;&#x424; -&gt; &#x410;&#x420;&#x418;&#x421;&#x41c;&#x41e;"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Menu>
         <Menu class="javax.swing.JMenu" name="separator2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="|"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="databaseButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x411;&#x430;&#x437;&#x430; &#x434;&#x430;&#x43d;&#x43d;&#x44b;&#x445;"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="reloadDictionariesButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#x41e;&#x431;&#x43d;&#x43e;&#x432;&#x438;&#x442;&#x44c; &#x441;&#x43f;&#x440;&#x430;&#x432;&#x43e;&#x447;&#x43d;&#x438;&#x43a;&#x438;"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="refreshDatabaseButton">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#x41e;&#x447;&#x438;&#x441;&#x442;&#x438;&#x442;&#x44c; &#x431;&#x430;&#x437;&#x443;"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="refreshDatabaseButtonActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="separator3">
           <Properties>
             <Property name="text" type="java.lang.String" value="|"/>
             <Property name="enabled" type="boolean" value="false"/>
@@ -116,6 +143,12 @@
             <Property name="editable" type="boolean" value="false"/>
             <Property name="rows" type="int" value="5"/>
           </Properties>
+          <Events>
+            <EventHandler event="inputMethodTextChanged" listener="java.awt.event.InputMethodListener" parameters="java.awt.event.InputMethodEvent" handler="logTextAreaInputMethodTextChanged"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="DefaultCaret caret = (DefaultCaret)logTextArea.getCaret();&#xa;caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
