@@ -22,7 +22,6 @@ public class ExtractorOsh1 {
     private static ResultSet[] rs;
     private static Statement[] s;
     private static ExcelExport ee;
-    
     private static int STCOUNT = 5;
     private static JTextArea log;
 
@@ -38,6 +37,7 @@ public class ExtractorOsh1 {
             s[i] = c.createStatement();
         }
 
+        extractPart1();
         extractPart3();
 
         ee.saveExportedWorkBooks(log);
@@ -50,9 +50,25 @@ public class ExtractorOsh1 {
         }
         if (Desktop.isDesktopSupported()) {
             Desktop.getDesktop().open(new File("export"));
-	}
+        }
     }
     
+    private static void extractPart1() throws SQLException, IOException {
+        rs[1] = s[1].executeQuery(ExcelExport.getSQLFromFile("./resources/sql/osh1/1/Q21-V21.txt"));
+        rs[1].first();
+
+        ee.setValue("osh1", 2, "Q", 22, rs[1].getInt(1));
+        ee.setValue("osh1", 2, "R", 22, rs[1].getInt(2));
+        ee.setValue("osh1", 2, "S", 22, rs[1].getInt(3));
+        ee.setValue("osh1", 2, "T", 21, rs[1].getInt(4));
+        ee.setValue("osh1", 2, "U", 21, rs[1].getInt(5));
+        ee.setValue("osh1", 2, "V", 21, rs[1].getInt(6));
+
+        if (log != null) {
+            log.append("Выполнено 6/6.\n");
+        }
+    }
+
     private static void extractPart3() throws SQLException, IOException {
         rs[1] = s[1].executeQuery(ExcelExport.getSQLFromFile("./resources/sql/osh1/3/grades.txt"));
         rs[1].first();
@@ -71,11 +87,11 @@ public class ExtractorOsh1 {
         ee.setValue("osh1", 4, "Q", 23, rs[1].getInt(6));
         ee.setValue("osh1", 4, "P", 24, rs[1].getInt(1) + rs[2].getInt(1) + rs[4].getInt(1) + rs[1].getInt(2) + rs[3].getInt(1) + rs[1].getInt(3)); // сумма первогостолбца
         ee.setValue("osh1", 4, "Q", 24, rs[1].getInt(4) + rs[1].getInt(5) + rs[1].getInt(6));
-        
+
         if (log != null) {
             log.append("Выполнено 7/9.\n");
         }
-        
+
         rs[1] = s[1].executeQuery(ExcelExport.getSQLFromFile("./resources/sql/osh1/3/grades_complete_less14.txt"));
         rs[1].first();
         rs[2] = s[2].executeQuery(ExcelExport.getSQLFromFile("./resources/sql/osh1/3/grades_complete_less25.txt"));
@@ -89,6 +105,5 @@ public class ExtractorOsh1 {
         if (log != null) {
             log.append("Выполнено 9/9.\n");
         }
-
     }
 }
