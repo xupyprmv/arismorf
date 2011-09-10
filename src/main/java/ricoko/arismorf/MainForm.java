@@ -5,6 +5,7 @@
  */
 package ricoko.arismorf;
 
+import ricoko.arismorf.extractors.ExtractorOsh1;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.Statement;
@@ -202,7 +203,7 @@ private void exportMORFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         @Override
         public void run() {
             try {
-                Extractor.extract(MySQL.getConnection(), logTextArea);
+                ExtractorOsh1.extract(MySQL.getConnection(), logTextArea);
             } catch (Exception e) {
                 logTextArea.append("Ошибка экспорта: " + e.getMessage() + "\n");
                 for (StackTraceElement ste : e.getStackTrace()) {

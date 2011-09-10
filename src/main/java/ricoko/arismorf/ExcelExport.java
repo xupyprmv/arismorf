@@ -9,6 +9,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -103,5 +106,18 @@ public class ExcelExport {
             result = result * 26 + alphabet.indexOf(col.substring(i, i + 1));
         }
         return result;
+    }
+    
+    public static String getSQLFromFile(String path) throws IOException {
+        FileInputStream stream = new FileInputStream(new File(path));
+        try {
+            FileChannel fc = stream.getChannel();
+            MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
+            fc.close();
+            stream.close();
+            return Charset.defaultCharset().decode(bb).toString();
+        } finally {
+            stream.close();
+        }
     }
 }
