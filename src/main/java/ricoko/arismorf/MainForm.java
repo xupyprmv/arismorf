@@ -216,7 +216,7 @@ public class MainForm extends javax.swing.JFrame {
                         .addContainerGap(725, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(logScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 774, Short.MAX_VALUE)
-                        .addGap(178, 178, 178))))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
