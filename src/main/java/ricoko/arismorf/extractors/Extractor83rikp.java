@@ -31,7 +31,7 @@ public class Extractor83rikp {
         Extractor83rikp.ee = ee;
         Extractor83rikp.log = log;
         if (log != null) {
-            log.append("Заполняю форму ОШ 5.\n");
+            log.append("Заполняю форму 83-рик первичный.\n");
         }
         rs = new ResultSet[STCOUNT];
         s = new Statement[STCOUNT];
