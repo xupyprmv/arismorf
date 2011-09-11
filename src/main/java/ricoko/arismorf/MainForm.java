@@ -6,6 +6,9 @@
 package ricoko.arismorf;
 
 import java.awt.Desktop;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import ricoko.arismorf.extractors.ExtractorOsh1;
 import java.io.File;
 import java.sql.Connection;
@@ -52,14 +55,16 @@ public class MainForm extends javax.swing.JFrame {
         exportMORF83rikp = new javax.swing.JMenuItem();
         separator1 = new javax.swing.JMenu();
         convMtoAButton = new javax.swing.JMenu();
+        separator4 = new javax.swing.JMenu();
         databaseButton = new javax.swing.JMenu();
         reloadDictionariesButton = new javax.swing.JMenuItem();
         refreshDatabaseButton = new javax.swing.JMenuItem();
         separator3 = new javax.swing.JMenu();
         helpButton = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Конвертатор: АРИСМО <-> МОРФ");
+        setTitle("Конвертатор: АРИСМО <-> МОРФ (версия 0.1)");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -152,6 +157,10 @@ public class MainForm extends javax.swing.JFrame {
         convMtoAButton.setEnabled(false);
         mainMenu.add(convMtoAButton);
 
+        separator4.setText("|");
+        separator4.setEnabled(false);
+        mainMenu.add(separator4);
+
         databaseButton.setText("База данных");
 
         reloadDictionariesButton.setText("Обновить справочники");
@@ -182,6 +191,15 @@ public class MainForm extends javax.swing.JFrame {
                 helpButtonActionPerformed(evt);
             }
         });
+
+        jMenuItem1.setText("Справка");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        helpButton.add(jMenuItem1);
+
         mainMenu.add(helpButton);
 
         setJMenuBar(mainMenu);
@@ -192,10 +210,13 @@ public class MainForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(logScrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 774, Short.MAX_VALUE)
-                    .addComponent(logLabel, javax.swing.GroupLayout.Alignment.LEADING))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(logLabel)
+                        .addContainerGap(725, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(logScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 774, Short.MAX_VALUE)
+                        .addGap(178, 178, 178))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -359,8 +380,21 @@ private void exportMORFOsh5ActionPerformed(java.awt.event.ActionEvent evt) {//GE
 }//GEN-LAST:event_exportMORFOsh5ActionPerformed
 
 private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
-// TODO add your handling code here:
+
 }//GEN-LAST:event_helpButtonActionPerformed
+
+private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    if (Desktop.isDesktopSupported()) {
+        try {
+            Desktop.getDesktop().open(new File("about.html"));
+        } catch (IOException e) {
+            logTextArea.append("Ошибка : " + e.getMessage() + "\n");
+            for (StackTraceElement ste : e.getStackTrace()) {
+                logTextArea.append(ste.toString() + "\n");
+            }
+        }
+    }
+}//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -385,6 +419,7 @@ private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenu exportMORFmenu;
     private javax.swing.JMenu helpButton;
     private javax.swing.JMenuItem importARISMO;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel logLabel;
     private javax.swing.JScrollPane logScrollPane;
@@ -394,5 +429,6 @@ private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenuItem reloadDictionariesButton;
     private javax.swing.JMenu separator1;
     private javax.swing.JMenu separator3;
+    private javax.swing.JMenu separator4;
     // End of variables declaration//GEN-END:variables
 }
