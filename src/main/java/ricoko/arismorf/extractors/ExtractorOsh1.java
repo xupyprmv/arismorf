@@ -47,6 +47,9 @@ public class ExtractorOsh1 {
         extractPart13();
         extractPart16();
         extractPart17();
+        extractPart18();
+        extractPart20();
+        extractPart21();
 
         ee.saveExportedWorkBooks(log);
 
@@ -407,7 +410,7 @@ public class ExtractorOsh1 {
     private static void extractPart18() throws SQLException, IOException {
 
         if (log != null) {
-            log.append("Заполняю раздел 16\n");
+            log.append("Заполняю раздел 18\n");
         }
 
         rs[1] = s[1].executeQuery(ExcelExport.getSQLFromFile("./resources/sql/osh1/18/P22_P27-P36_Q22_Q27-Q36.txt"));
@@ -432,9 +435,69 @@ public class ExtractorOsh1 {
         ee.setValue("osh1", 19, "Q", 30, rs[1].getInt(16));
         ee.setValue("osh1", 19, "Q", 31, rs[1].getInt(17));
         ee.setValue("osh1", 19, "Q", 32, rs[1].getInt(18));
-        ee.setValue("osh1", 19, "Q", 33, rs[1].getInt(20));
-        ee.setValue("osh1", 19, "Q", 34, rs[1].getInt(21));
-        ee.setValue("osh1", 19, "Q", 35, rs[1].getInt(22));
-        ee.setValue("osh1", 19, "Q", 36, rs[1].getInt(23));
+        ee.setValue("osh1", 19, "Q", 33, rs[1].getInt(19));
+        ee.setValue("osh1", 19, "Q", 34, rs[1].getInt(20));
+        ee.setValue("osh1", 19, "Q", 35, rs[1].getInt(21));
+        ee.setValue("osh1", 19, "Q", 36, rs[1].getInt(22));
     }
+    
+    private static void extractPart20() throws SQLException, IOException {
+
+        if (log != null) {
+            log.append("Заполняю раздел 20\n");
+        }
+
+        rs[1] = s[1].executeQuery(ExcelExport.getSQLFromFile("./resources/sql/osh1/20/P22_P24-P34.txt"));
+        rs[1].first();
+
+        ee.setValue("osh1", 21, "P", 22, rs[1].getInt(1));
+        ee.setValue("osh1", 21, "P", 24, rs[1].getInt(2));
+        ee.setValue("osh1", 21, "P", 25, rs[1].getInt(3));
+        ee.setValue("osh1", 21, "P", 26, rs[1].getInt(4));
+        ee.setValue("osh1", 21, "P", 27, rs[1].getInt(5));
+        ee.setValue("osh1", 21, "P", 28, rs[1].getInt(6));
+        ee.setValue("osh1", 21, "P", 29, rs[1].getInt(7));
+        ee.setValue("osh1", 21, "P", 30, rs[1].getInt(8));
+        ee.setValue("osh1", 21, "P", 31, rs[1].getInt(9));
+        ee.setValue("osh1", 21, "P", 32, rs[1].getInt(10));
+        ee.setValue("osh1", 21, "P", 33, rs[1].getInt(11));
+        ee.setValue("osh1", 21, "P", 34, rs[1].getInt(12));
+    }
+    
+    private static void extractPart21() throws SQLException, IOException {
+
+        if (log != null) {
+            log.append("Заполняю раздел 21\n");
+        }
+
+        rs[1] = s[1].executeQuery(ExcelExport.getSQLFromFile("./resources/sql/osh1/21/P22_P24-P34_Q22_Q24-Q34.txt"));
+        rs[1].first();
+
+        ee.setValue("osh1", 22, "P", 22, rs[1].getInt(1));
+        ee.setValue("osh1", 22, "P", 24, rs[1].getInt(2));
+        ee.setValue("osh1", 22, "P", 25, rs[1].getInt(3));
+        ee.setValue("osh1", 22, "P", 26, rs[1].getInt(4));
+        ee.setValue("osh1", 22, "P", 27, rs[1].getInt(5));
+        ee.setValue("osh1", 22, "P", 28, rs[1].getInt(6));
+        ee.setValue("osh1", 22, "P", 29, rs[1].getInt(7));
+        ee.setValue("osh1", 22, "P", 30, rs[1].getInt(8));
+        ee.setValue("osh1", 22, "P", 31, rs[1].getInt(9));
+        ee.setValue("osh1", 22, "P", 32, rs[1].getInt(10));
+        ee.setValue("osh1", 22, "P", 33, rs[1].getInt(11));
+        ee.setValue("osh1", 22, "P", 34, rs[1].getInt(12));
+        
+        ee.setValue("osh1", 22, "Q", 22, rs[1].getInt(13));
+        ee.setValue("osh1", 22, "Q", 24, rs[1].getInt(14));
+        ee.setValue("osh1", 22, "Q", 25, rs[1].getInt(15));
+        ee.setValue("osh1", 22, "Q", 26, rs[1].getInt(16));
+        ee.setValue("osh1", 22, "Q", 27, rs[1].getInt(17));
+        ee.setValue("osh1", 22, "Q", 28, rs[1].getInt(18));
+        ee.setValue("osh1", 22, "Q", 29, rs[1].getInt(19));
+        ee.setValue("osh1", 22, "Q", 30, rs[1].getInt(10));
+        ee.setValue("osh1", 22, "Q", 31, rs[1].getInt(21));
+        ee.setValue("osh1", 22, "Q", 32, rs[1].getInt(22));
+        ee.setValue("osh1", 22, "Q", 33, rs[1].getInt(23));
+        ee.setValue("osh1", 22, "Q", 34, rs[1].getInt(24));
+    }
+
 }

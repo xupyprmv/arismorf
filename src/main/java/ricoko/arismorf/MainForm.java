@@ -13,6 +13,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.text.DefaultCaret;
+import ricoko.arismorf.extractors.ExtractorOsh5;
 
 /**
  * @author maksimenkov (xupypr@xupypr.com)
@@ -229,6 +230,7 @@ private void exportMORFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         public void run() {
             try {
                 ExtractorOsh1.extract(MySQL.getConnection(), logTextArea);
+                ExtractorOsh5.extract(MySQL.getConnection(), logTextArea);
             } catch (Exception e) {
                 logTextArea.append("Ошибка экспорта: " + e.getMessage() + "\n");
                 for (StackTraceElement ste : e.getStackTrace()) {
