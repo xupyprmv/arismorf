@@ -1,7 +1,5 @@
 package ricoko.arismorf.extractors;
 
-import java.awt.Desktop;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
@@ -485,7 +483,7 @@ public class ExtractorOsh1 {
         ee.setValue("osh1", 22, "Q", 27, rs[1].getInt(17));
         ee.setValue("osh1", 22, "Q", 28, rs[1].getInt(18));
         ee.setValue("osh1", 22, "Q", 29, rs[1].getInt(19));
-        ee.setValue("osh1", 22, "Q", 30, rs[1].getInt(10));
+        ee.setValue("osh1", 22, "Q", 30, rs[1].getInt(20));
         ee.setValue("osh1", 22, "Q", 31, rs[1].getInt(21));
         ee.setValue("osh1", 22, "Q", 32, rs[1].getInt(22));
         ee.setValue("osh1", 22, "Q", 33, rs[1].getInt(23));
