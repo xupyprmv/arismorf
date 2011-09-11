@@ -137,15 +137,6 @@ public class ExtractorOsh5 {
         ee.setValue("osh5", 4, "S", 24, rs[1].getInt(4));
         ee.setValue("osh5", 4, "S", 25, rs[1].getInt(5));
 
-        rs[1] = s[1].executeQuery(ExcelExport.getSQLFromFile("./resources/sql/osh5/3/T21-T25.txt"));
-        rs[1].first();
-
-        ee.setValue("osh5", 4, "T", 21, rs[1].getInt(1));
-        ee.setValue("osh5", 4, "T", 22, rs[1].getInt(2));
-        ee.setValue("osh5", 4, "T", 23, rs[1].getInt(3));
-        ee.setValue("osh5", 4, "T", 24, rs[1].getInt(4));
-        ee.setValue("osh5", 4, "T", 25, rs[1].getInt(5));
-
         rs[1] = s[1].executeQuery(ExcelExport.getSQLFromFile("./resources/sql/osh5/3/U21-U25.txt"));
         rs[1].first();
 
