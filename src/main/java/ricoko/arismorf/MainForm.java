@@ -259,22 +259,7 @@ private void importARISMOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 }//GEN-LAST:event_importARISMOActionPerformed
 
 private void exportMORFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportMORFActionPerformed
-    Thread t = new Thread(new Runnable() {
-
-        @Override
-        public void run() {
-            try {
-                ExtractorOsh1.extract(MySQL.getConnection(), logTextArea);
-                ExtractorOsh5.extract(MySQL.getConnection(), logTextArea);
-            } catch (Exception e) {
-                logTextArea.append("Ошибка экспорта: " + e.getMessage() + "\n");
-                for (StackTraceElement ste : e.getStackTrace()) {
-                    logTextArea.append(ste.toString() + "\n");
-                }
-            }
-        }
-    });
-    t.start();
+    exportMORFForm("all");
 }//GEN-LAST:event_exportMORFActionPerformed
 
 private void logTextAreaInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_logTextAreaInputMethodTextChanged
