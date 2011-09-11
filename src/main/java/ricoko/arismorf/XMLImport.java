@@ -1,6 +1,7 @@
 package ricoko.arismorf;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -10,12 +11,13 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 import ricoko.arismorf.DatabaseStructure.Field;
 
 /**
- * Парсер входных данных из АР�?СМО в Формате XML
+ * Парсер входных данных из АРИСМО в Формате XML
  * 
  * @author maksimenkov (xupypr@xupypr.com)
  */
@@ -61,7 +63,9 @@ public class XMLImport extends DefaultHandler {
                 
         SAXParserFactory spf = SAXParserFactory.newInstance();
         SAXParser sp = spf.newSAXParser();
-        sp.parse(file, this);
+        InputSource is = new InputSource(new FileInputStream(file));
+        is.setEncoding("cp1251");
+        sp.parse(is, this);
         if (counter > 0) {
             statement.executeBatch();
             if (instance.log != null) {
@@ -77,7 +81,7 @@ public class XMLImport extends DefaultHandler {
 //        statement.execute("DELETE FROM PARTICIPANTS LEFT JOIN GRADES ON (PARTICIPANTS.SYS_GUIDFK = GRADES.SYS_GUID) WHERE (GRADES.SYS_GUID IS NULL)");
 
         if (instance.log != null) {
-            instance.log.append("�?мпорт завершен.\n");
+            instance.log.append("Импорт завершен.\n");
         }
         dictionaries = false;
     }
@@ -97,7 +101,7 @@ public class XMLImport extends DefaultHandler {
         instance.dbs.createAllTables(MySQL.getConnection(), instance.log);
 
         if (instance.log != null) {
-            instance.log.append("�?нициализация завершена.\n");
+            instance.log.append("Инициализация завершена.\n");
         }
     }
 
@@ -139,7 +143,7 @@ public class XMLImport extends DefaultHandler {
             // Данные по записям таблиц
             for (String tableName : dbs.structure.keySet()) {
                 if (qName.equalsIgnoreCase(tableName)) {
-                    // �?мпорт записей
+                    // Импорт записей
                     if (dictionaries 
                             || tableName.equals("PARTICIPANTS")
                             || tableName.equals("EGEEXTPARTICIPANTS")

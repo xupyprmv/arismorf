@@ -57,9 +57,9 @@ public class DatabaseStructure {
             } else if (dType.equals("CheckComboBox")) {
                 this.type = FieldType.BIGINT;
             } else if (dType.equals("Group")) {
-                // �?гнорим группы
+                // Игнорим группы
             } else if (dType.equals("File")) {
-                // �?гнорим файлы
+                // Игнорим файлы
             } else {
                 throw new IllegalStateException("Unknown field type: " + dType);
             }
@@ -144,7 +144,7 @@ public class DatabaseStructure {
         int counter = 0;
         for (String tableName : structure.keySet()) {
             if (log != null && counter % 10 == 0) {
-                log.append("Создано таблиц : " + counter + "\n");
+                log.append("Подключено таблиц : " + counter + "\n");
             }
             counter++;
             Statement statement = connection.createStatement();
@@ -152,7 +152,7 @@ public class DatabaseStructure {
             statement.close();
         }
         if (log != null && counter != 0) {
-            log.append("Создано таблиц : " + counter + "\n");
+            log.append("Подключено таблиц : " + counter + "\n");
             counter = 0;
         }
     }
