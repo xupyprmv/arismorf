@@ -5,6 +5,7 @@
  */
 package ricoko.arismorf;
 
+import java.awt.Desktop;
 import ricoko.arismorf.extractors.ExtractorOsh1;
 import java.io.File;
 import java.sql.Connection;
@@ -51,7 +52,6 @@ public class MainForm extends javax.swing.JFrame {
         exportMORF83rikp = new javax.swing.JMenuItem();
         separator1 = new javax.swing.JMenu();
         convMtoAButton = new javax.swing.JMenu();
-        separator2 = new javax.swing.JMenu();
         databaseButton = new javax.swing.JMenu();
         reloadDictionariesButton = new javax.swing.JMenuItem();
         refreshDatabaseButton = new javax.swing.JMenuItem();
@@ -152,10 +152,6 @@ public class MainForm extends javax.swing.JFrame {
         convMtoAButton.setEnabled(false);
         mainMenu.add(convMtoAButton);
 
-        separator2.setText("|");
-        separator2.setEnabled(false);
-        mainMenu.add(separator2);
-
         databaseButton.setText("База данных");
 
         reloadDictionariesButton.setText("Обновить справочники");
@@ -181,6 +177,11 @@ public class MainForm extends javax.swing.JFrame {
         mainMenu.add(separator3);
 
         helpButton.setText("Помощь");
+        helpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                helpButtonActionPerformed(evt);
+            }
+        });
         mainMenu.add(helpButton);
 
         setJMenuBar(mainMenu);
@@ -227,9 +228,9 @@ private void importARISMOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 
                     @Override
                     public boolean accept(File pathname) {
-                        if (pathname.isFile() && 
-                                (pathname.getName().endsWith("xml") ||
-                                pathname.getName().endsWith("XML"))) {
+                        if (pathname.isFile()
+                                && (pathname.getName().endsWith("xml")
+                                || pathname.getName().endsWith("XML"))) {
                             return true;
                         } else {
                             return false;
@@ -319,14 +320,20 @@ private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event
             @Override
             public void run() {
                 try {
+                    ExcelExport ee = new ExcelExport();
                     if (formName.equals("osh1") || formName.equals("all")) {
-                        ExtractorOsh1.extract(MySQL.getConnection(), logTextArea);
+                        ExtractorOsh1.extract(MySQL.getConnection(), logTextArea, ee);
                     }
                     if (formName.equals("osh5") || formName.equals("all")) {
-                        ExtractorOsh5.extract(MySQL.getConnection(), logTextArea);
+                        ExtractorOsh5.extract(MySQL.getConnection(), logTextArea, ee);
                     }
                     if (formName.equals("83rikp") || formName.equals("all")) {
-                        Extractor83rikp.extract(MySQL.getConnection(), logTextArea);
+                        Extractor83rikp.extract(MySQL.getConnection(), logTextArea, ee);
+                    }
+                    ee.saveExportedWorkBooks(logTextArea);
+                    logTextArea.append("Экпорт завершен. Результаты экспорта располагаются в папке export.\n");
+                    if (Desktop.isDesktopSupported()) {
+                        Desktop.getDesktop().open(new File("export"));
                     }
                 } catch (Exception e) {
                     logTextArea.append("Ошибка экспорта: " + e.getMessage() + "\n");
@@ -340,7 +347,7 @@ private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event
     }
 
 private void exportMORFOsh1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportMORFOsh1ActionPerformed
-   exportMORFForm("osh1");
+    exportMORFForm("osh1");
 }//GEN-LAST:event_exportMORFOsh1ActionPerformed
 
 private void exportMORF83rikpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportMORF83rikpActionPerformed
@@ -350,6 +357,10 @@ private void exportMORF83rikpActionPerformed(java.awt.event.ActionEvent evt) {//
 private void exportMORFOsh5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportMORFOsh5ActionPerformed
     exportMORFForm("osh5");
 }//GEN-LAST:event_exportMORFOsh5ActionPerformed
+
+private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_helpButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -382,7 +393,6 @@ private void exportMORFOsh5ActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JMenuItem refreshDatabaseButton;
     private javax.swing.JMenuItem reloadDictionariesButton;
     private javax.swing.JMenu separator1;
-    private javax.swing.JMenu separator2;
     private javax.swing.JMenu separator3;
     // End of variables declaration//GEN-END:variables
 }

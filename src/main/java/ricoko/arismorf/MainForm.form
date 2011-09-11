@@ -77,12 +77,6 @@
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="separator2">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="|"/>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
-        </Menu>
         <Menu class="javax.swing.JMenu" name="databaseButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x411;&#x430;&#x437;&#x430; &#x434;&#x430;&#x43d;&#x43d;&#x44b;&#x445;"/>
@@ -116,6 +110,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x41f;&#x43e;&#x43c;&#x43e;&#x449;&#x44c;"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="helpButtonActionPerformed"/>
+          </Events>
         </Menu>
       </SubComponents>
     </Menu>
