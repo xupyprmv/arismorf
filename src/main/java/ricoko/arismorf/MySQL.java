@@ -43,7 +43,7 @@ public class MySQL {
             options.put("port", "3307");
             mysql = new MysqldResource(dbFile);
             mysql.start("arismorf", options);
-            Thread.sleep(2000);
+            //Thread.sleep(2000);
         }
     }
 
