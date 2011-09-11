@@ -13,6 +13,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.text.DefaultCaret;
+import ricoko.arismorf.extractors.Extractor83rikp;
 import ricoko.arismorf.extractors.ExtractorOsh5;
 
 /**
@@ -42,7 +43,12 @@ public class MainForm extends javax.swing.JFrame {
         mainMenu = new javax.swing.JMenuBar();
         convAtoMButton = new javax.swing.JMenu();
         importARISMO = new javax.swing.JMenuItem();
+        exportMORFmenu = new javax.swing.JMenu();
         exportMORF = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        exportMORFOsh1 = new javax.swing.JMenuItem();
+        exportMORFOsh5 = new javax.swing.JMenuItem();
+        exportMORF83rikp = new javax.swing.JMenuItem();
         separator1 = new javax.swing.JMenu();
         convMtoAButton = new javax.swing.JMenu();
         separator2 = new javax.swing.JMenu();
@@ -74,14 +80,14 @@ public class MainForm extends javax.swing.JFrame {
         DefaultCaret caret = (DefaultCaret)logTextArea.getCaret();
         caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 
-        logLabel.setFont(new java.awt.Font("DejaVu Sans", 1, 13)); // NOI18N
+        logLabel.setFont(new java.awt.Font("DejaVu Sans", 1, 13));
         logLabel.setText("Журнал :");
 
         mainMenu.setName("MainMenu"); // NOI18N
 
         convAtoMButton.setText("АРИСМО -> МОРФ");
 
-        importARISMO.setText("Импорт из АРИСМО (xml)");
+        importARISMO.setText("Импорт из АРИСМО");
         importARISMO.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 importARISMOMouseClicked(evt);
@@ -94,7 +100,9 @@ public class MainForm extends javax.swing.JFrame {
         });
         convAtoMButton.add(importARISMO);
 
-        exportMORF.setText("Экспорт в МОРФ (xls)");
+        exportMORFmenu.setText("Экспорт");
+
+        exportMORF.setText("Экспорт в МОРФ (полный)");
         exportMORF.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 exportMORFMouseClicked(evt);
@@ -105,7 +113,34 @@ public class MainForm extends javax.swing.JFrame {
                 exportMORFActionPerformed(evt);
             }
         });
-        convAtoMButton.add(exportMORF);
+        exportMORFmenu.add(exportMORF);
+        exportMORFmenu.add(jSeparator1);
+
+        exportMORFOsh1.setText("Форма № Ош-1");
+        exportMORFOsh1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportMORFOsh1ActionPerformed(evt);
+            }
+        });
+        exportMORFmenu.add(exportMORFOsh1);
+
+        exportMORFOsh5.setText("Форма № Ош-5");
+        exportMORFOsh5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportMORFOsh5ActionPerformed(evt);
+            }
+        });
+        exportMORFmenu.add(exportMORFOsh5);
+
+        exportMORF83rikp.setText("Форма № 83-рик первичная");
+        exportMORF83rikp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportMORF83rikpActionPerformed(evt);
+            }
+        });
+        exportMORFmenu.add(exportMORF83rikp);
+
+        convAtoMButton.add(exportMORFmenu);
 
         mainMenu.add(convAtoMButton);
 
@@ -293,6 +328,44 @@ private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event
     }
 }//GEN-LAST:event_formWindowClosed
 
+    private void exportMORFForm(final String formName) {
+        Thread t = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    if (formName.equals("osh1") || formName.equals("all")) {
+                        ExtractorOsh1.extract(MySQL.getConnection(), logTextArea);
+                    }
+                    if (formName.equals("osh5") || formName.equals("all")) {
+                        ExtractorOsh5.extract(MySQL.getConnection(), logTextArea);
+                    }
+                    if (formName.equals("83rikp") || formName.equals("all")) {
+                        Extractor83rikp.extract(MySQL.getConnection(), logTextArea);
+                    }
+                } catch (Exception e) {
+                    logTextArea.append("Ошибка экспорта: " + e.getMessage() + "\n");
+                    for (StackTraceElement ste : e.getStackTrace()) {
+                        logTextArea.append(ste.toString() + "\n");
+                    }
+                }
+            }
+        });
+        t.start();
+    }
+
+private void exportMORFOsh1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportMORFOsh1ActionPerformed
+   exportMORFForm("osh1");
+}//GEN-LAST:event_exportMORFOsh1ActionPerformed
+
+private void exportMORF83rikpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportMORF83rikpActionPerformed
+    exportMORFForm("83rikp");
+}//GEN-LAST:event_exportMORF83rikpActionPerformed
+
+private void exportMORFOsh5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportMORFOsh5ActionPerformed
+    exportMORFForm("osh5");
+}//GEN-LAST:event_exportMORFOsh5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -310,8 +383,13 @@ private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event
     private javax.swing.JMenu convMtoAButton;
     private javax.swing.JMenu databaseButton;
     private javax.swing.JMenuItem exportMORF;
+    private javax.swing.JMenuItem exportMORF83rikp;
+    private javax.swing.JMenuItem exportMORFOsh1;
+    private javax.swing.JMenuItem exportMORFOsh5;
+    private javax.swing.JMenu exportMORFmenu;
     private javax.swing.JMenu helpButton;
     private javax.swing.JMenuItem importARISMO;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel logLabel;
     private javax.swing.JScrollPane logScrollPane;
     private javax.swing.JTextArea logTextArea;

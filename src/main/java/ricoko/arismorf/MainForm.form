@@ -14,22 +14,55 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="importARISMO">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&#x418;&#x43c;&#x43f;&#x43e;&#x440;&#x442; &#x438;&#x437; &#x410;&#x420;&#x418;&#x421;&#x41c;&#x41e; (xml)"/>
+                <Property name="text" type="java.lang.String" value="&#x418;&#x43c;&#x43f;&#x43e;&#x440;&#x442; &#x438;&#x437; &#x410;&#x420;&#x418;&#x421;&#x41c;&#x41e;"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="importARISMOMouseClicked"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="importARISMOActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="exportMORF">
+            <Menu class="javax.swing.JMenu" name="exportMORFmenu">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&#x42d;&#x43a;&#x441;&#x43f;&#x43e;&#x440;&#x442; &#x432; &#x41c;&#x41e;&#x420;&#x424; (xls)"/>
+                <Property name="text" type="java.lang.String" value="&#x42d;&#x43a;&#x441;&#x43f;&#x43e;&#x440;&#x442;"/>
               </Properties>
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="exportMORFMouseClicked"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportMORFActionPerformed"/>
-              </Events>
-            </MenuItem>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="exportMORF">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="&#x42d;&#x43a;&#x441;&#x43f;&#x43e;&#x440;&#x442; &#x432; &#x41c;&#x41e;&#x420;&#x424; (&#x43f;&#x43e;&#x43b;&#x43d;&#x44b;&#x439;)"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="exportMORFMouseClicked"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportMORFActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="exportMORFOsh1">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="&#x424;&#x43e;&#x440;&#x43c;&#x430; &#x2116; &#x41e;&#x448;-1"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportMORFOsh1ActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="exportMORFOsh5">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="&#x424;&#x43e;&#x440;&#x43c;&#x430; &#x2116; &#x41e;&#x448;-5"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportMORFOsh5ActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="exportMORF83rikp">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="&#x424;&#x43e;&#x440;&#x43c;&#x430; &#x2116; 83-&#x440;&#x438;&#x43a; &#x43f;&#x435;&#x440;&#x432;&#x438;&#x447;&#x43d;&#x430;&#x44f;"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportMORF83rikpActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="separator1">
