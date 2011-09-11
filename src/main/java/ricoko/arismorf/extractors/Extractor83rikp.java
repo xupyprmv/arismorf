@@ -470,5 +470,97 @@ public class Extractor83rikp {
         ee.setValue("83rikp", 2, "AL", 55, rs[1].getInt(35));
         ee.setValue("83rikp", 2, "AL", 58, rs[1].getInt(36));
         ee.setValue("83rikp", 2, "AL", 60, rs[1].getInt(37));
+        
+        rs[1] = s[1].executeQuery(ExcelExport.getSQLFromFile("./resources/sql/83rikp/1/P21-P55_P58_P60.txt"));
+        rs[1].first();
+
+        ee.setValue("83rikp", 2, "P", 21, rs[1].getInt(1));
+        ee.setValue("83rikp", 2, "P", 22, rs[1].getInt(2));
+        ee.setValue("83rikp", 2, "P", 23, rs[1].getInt(3));
+        ee.setValue("83rikp", 2, "P", 24, rs[1].getInt(4));
+        ee.setValue("83rikp", 2, "P", 25, rs[1].getInt(5));
+        ee.setValue("83rikp", 2, "P", 26, rs[1].getInt(6));
+        ee.setValue("83rikp", 2, "P", 27, rs[1].getInt(7));
+        ee.setValue("83rikp", 2, "P", 28, rs[1].getInt(8));
+        ee.setValue("83rikp", 2, "P", 29, rs[1].getInt(9));
+        ee.setValue("83rikp", 2, "P", 30, rs[1].getInt(10));
+        ee.setValue("83rikp", 2, "P", 31, rs[1].getInt(11));
+        ee.setValue("83rikp", 2, "P", 32, rs[1].getInt(12));
+        ee.setValue("83rikp", 2, "P", 33, rs[1].getInt(13));
+        ee.setValue("83rikp", 2, "P", 34, rs[1].getInt(14));
+        ee.setValue("83rikp", 2, "P", 35, rs[1].getInt(15));
+        ee.setValue("83rikp", 2, "P", 36, rs[1].getInt(16));
+        ee.setValue("83rikp", 2, "P", 37, rs[1].getInt(17));
+        ee.setValue("83rikp", 2, "P", 38, rs[1].getInt(18));
+        ee.setValue("83rikp", 2, "P", 39, rs[1].getInt(19));
+        ee.setValue("83rikp", 2, "P", 40, rs[1].getInt(20));
+        ee.setValue("83rikp", 2, "P", 41, rs[1].getInt(21));
+        ee.setValue("83rikp", 2, "P", 42, rs[1].getInt(22));
+        ee.setValue("83rikp", 2, "P", 43, rs[1].getInt(23));
+        ee.setValue("83rikp", 2, "P", 44, rs[1].getInt(24));
+        ee.setValue("83rikp", 2, "P", 45, rs[1].getInt(25));
+        ee.setValue("83rikp", 2, "P", 46, rs[1].getInt(26));
+        ee.setValue("83rikp", 2, "P", 47, rs[1].getInt(27));
+        ee.setValue("83rikp", 2, "P", 48, rs[1].getInt(28));
+        ee.setValue("83rikp", 2, "P", 49, rs[1].getInt(29));
+        ee.setValue("83rikp", 2, "P", 50, rs[1].getInt(30));
+        ee.setValue("83rikp", 2, "P", 51, rs[1].getInt(31));
+        ee.setValue("83rikp", 2, "P", 52, rs[1].getInt(32));
+        ee.setValue("83rikp", 2, "P", 53, rs[1].getInt(33));
+        ee.setValue("83rikp", 2, "P", 54, rs[1].getInt(34));
+        ee.setValue("83rikp", 2, "P", 55, rs[1].getInt(35));
+        ee.setValue("83rikp", 2, "P", 58, rs[1].getInt(36));
+        ee.setValue("83rikp", 2, "P", 60, rs[1].getInt(37));
+        
+        rs[1] = s[1].executeQuery(ExcelExport.getSQLFromFile("./resources/sql/83rikp/1/P61.txt"));
+        rs[1].first();
+
+        ee.setValue("83rikp", 2, "P", 61, rs[1].getInt(1));
+        
+        rs[1] = s[1].executeQuery(ExcelExport.getSQLFromFile("./resources/sql/83rikp/1/P62.txt"));
+        rs[1].first();
+
+        ee.setValue("83rikp", 2, "P", 62, rs[1].getInt(1));
+
+        rs[1] = s[1].executeQuery(ExcelExport.getSQLFromFile("./resources/sql/83rikp/1/R21-R55_R58_R60.txt"));
+        rs[1].first();
+
+        ee.setValue("83rikp", 2, "R", 21, rs[1].getInt(1));
+        ee.setValue("83rikp", 2, "R", 22, rs[1].getInt(2));
+        ee.setValue("83rikp", 2, "R", 23, rs[1].getInt(3));
+        ee.setValue("83rikp", 2, "R", 24, rs[1].getInt(4));
+        ee.setValue("83rikp", 2, "R", 25, rs[1].getInt(5));
+        ee.setValue("83rikp", 2, "R", 26, rs[1].getInt(6));
+        ee.setValue("83rikp", 2, "R", 27, rs[1].getInt(7));
+        ee.setValue("83rikp", 2, "R", 28, rs[1].getInt(8));
+        ee.setValue("83rikp", 2, "R", 29, rs[1].getInt(9));
+        ee.setValue("83rikp", 2, "R", 30, rs[1].getInt(10));
+        ee.setValue("83rikp", 2, "R", 31, rs[1].getInt(11));
+        ee.setValue("83rikp", 2, "R", 32, rs[1].getInt(12));
+        ee.setValue("83rikp", 2, "R", 33, rs[1].getInt(13));
+        ee.setValue("83rikp", 2, "R", 34, rs[1].getInt(14));
+        ee.setValue("83rikp", 2, "R", 35, rs[1].getInt(15));
+        ee.setValue("83rikp", 2, "R", 36, rs[1].getInt(16));
+        ee.setValue("83rikp", 2, "R", 37, rs[1].getInt(17));
+        ee.setValue("83rikp", 2, "R", 38, rs[1].getInt(18));
+        ee.setValue("83rikp", 2, "R", 39, rs[1].getInt(19));
+        ee.setValue("83rikp", 2, "R", 40, rs[1].getInt(20));
+        ee.setValue("83rikp", 2, "R", 41, rs[1].getInt(21));
+        ee.setValue("83rikp", 2, "R", 42, rs[1].getInt(22));
+        ee.setValue("83rikp", 2, "R", 43, rs[1].getInt(23));
+        ee.setValue("83rikp", 2, "R", 44, rs[1].getInt(24));
+        ee.setValue("83rikp", 2, "R", 45, rs[1].getInt(25));
+        ee.setValue("83rikp", 2, "R", 46, rs[1].getInt(26));
+        ee.setValue("83rikp", 2, "R", 47, rs[1].getInt(27));
+        ee.setValue("83rikp", 2, "R", 48, rs[1].getInt(28));
+        ee.setValue("83rikp", 2, "R", 49, rs[1].getInt(29));
+        ee.setValue("83rikp", 2, "R", 50, rs[1].getInt(30));
+        ee.setValue("83rikp", 2, "R", 51, rs[1].getInt(31));
+        ee.setValue("83rikp", 2, "R", 52, rs[1].getInt(32));
+        ee.setValue("83rikp", 2, "R", 53, rs[1].getInt(33));
+        ee.setValue("83rikp", 2, "R", 54, rs[1].getInt(34));
+        ee.setValue("83rikp", 2, "R", 55, rs[1].getInt(35));
+        ee.setValue("83rikp", 2, "R", 58, rs[1].getInt(36));
+        ee.setValue("83rikp", 2, "R", 60, rs[1].getInt(37));
     }
 }
