@@ -14,7 +14,8 @@ public class ExcelTest {
     public static void main(String[] args) {
         ExcelExport ee = new ExcelExport();
         try {
-            ExtractorOsh1.extract(MySQL.getConnection(), null);
+            ExtractorOsh1.extract(MySQL.getConnection(), null, ee);
+            ee.saveExportedWorkBooks(null);
         } catch (Exception e) {
             e.printStackTrace();
         }

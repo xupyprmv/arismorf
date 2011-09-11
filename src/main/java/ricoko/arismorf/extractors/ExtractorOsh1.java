@@ -25,8 +25,8 @@ public class ExtractorOsh1 {
     private static int STCOUNT = 5;
     private static JTextArea log;
 
-    public static void extract(Connection c, JTextArea log) throws SQLException, FileNotFoundException, IOException {
-        ee = new ExcelExport();
+    public static void extract(Connection c, JTextArea log, ExcelExport ee) throws SQLException, FileNotFoundException, IOException {
+        ExtractorOsh1.ee = ee;
         ExtractorOsh1.log = log;
         if (log != null) {
             log.append("Заполняю форму ОШ 1.\n");
@@ -51,16 +51,8 @@ public class ExtractorOsh1 {
         extractPart20();
         extractPart21();
 
-        ee.saveExportedWorkBooks(log);
-
-        if (log != null) {
-            log.append("Экпорт завершен. Результаты экспорта располагаются в папке export.\n");
-        }
         for (int i = 0; i < STCOUNT; i++) {
             s[i].close();
-        }
-        if (Desktop.isDesktopSupported()) {
-            Desktop.getDesktop().open(new File("export"));
         }
     }
 
