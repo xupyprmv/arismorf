@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.Statement;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.filechooser.FileFilter;
 import javax.swing.text.DefaultCaret;
 
 /**
@@ -52,6 +53,11 @@ public class MainForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Конвертатор: АРИСМО <-> МОРФ");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         logTextArea.setColumns(20);
         logTextArea.setEditable(false);
@@ -181,6 +187,25 @@ private void importARISMOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         public void run() {
             try {
                 JFileChooser fc = new JFileChooser();
+                FileFilter filter1 = new FileFilter() {
+
+                    @Override
+                    public boolean accept(File pathname) {
+                        if (pathname.isFile() && 
+                                (pathname.getName().endsWith("xml") ||
+                                pathname.getName().endsWith("XML"))) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+
+                    @Override
+                    public String getDescription() {
+                        return "xml files";
+                    }
+                };
+                fc.setFileFilter(filter1);
                 int returnVal = fc.showOpenDialog(jf);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     File file = fc.getSelectedFile();
@@ -257,6 +282,14 @@ private void refreshDatabaseButtonActionPerformed(java.awt.event.ActionEvent evt
 private void reloadDictionariesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reloadDictionariesButtonActionPerformed
     importARISMOActionPerformed(evt);
 }//GEN-LAST:event_reloadDictionariesButtonActionPerformed
+
+private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+    try {
+        MySQL.stopMySQL();
+    } catch (Exception ex) {
+        ex.printStackTrace();
+    }
+}//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
