@@ -231,7 +231,8 @@ private void refreshDatabaseButtonActionPerformed(java.awt.event.ActionEvent evt
                 Statement statement = connection.createStatement();
                 logTextArea.append("Очищаю базу данных \n");
                 statement.execute("DROP DATABASE arismorf;");
-                statement.execute("CREATE DATABASE arismorf;");
+                statement.execute("CREATE DATABASE arismorf CHARACTER SET=cp1251;");
+                statement.execute("SET NAMES cp1251;");
                 statement.execute("USE arismorf;");
                 logTextArea.append("База данных очищена \n");
                 statement.close();

@@ -57,9 +57,9 @@ public class DatabaseStructure {
             } else if (dType.equals("CheckComboBox")) {
                 this.type = FieldType.BIGINT;
             } else if (dType.equals("Group")) {
-                // Игнорим группы
+                // �?гнорим группы
             } else if (dType.equals("File")) {
-                // Игнорим файлы
+                // �?гнорим файлы
             } else {
                 throw new IllegalStateException("Unknown field type: " + dType);
             }
@@ -101,7 +101,7 @@ public class DatabaseStructure {
             }
             first = false;
         }
-        result.append(");");
+        result.append(") CHARACTER SET=cp1251;");
         return result.toString();
     }
 

@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
 import java.util.ArrayList;
 import javax.swing.JTextArea;
 import javax.xml.parsers.ParserConfigurationException;
@@ -16,7 +15,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import ricoko.arismorf.DatabaseStructure.Field;
 
 /**
- * Парсер входных данных из АРИСМО в Формате XML
+ * Парсер входных данных из АР�?СМО в Формате XML
  * 
  * @author maksimenkov (xupypr@xupypr.com)
  */
@@ -78,7 +77,7 @@ public class XMLImport extends DefaultHandler {
 //        statement.execute("DELETE FROM PARTICIPANTS LEFT JOIN GRADES ON (PARTICIPANTS.SYS_GUIDFK = GRADES.SYS_GUID) WHERE (GRADES.SYS_GUID IS NULL)");
 
         if (instance.log != null) {
-            instance.log.append("Импорт завершен.\n");
+            instance.log.append("�?мпорт завершен.\n");
         }
         dictionaries = false;
     }
@@ -98,7 +97,7 @@ public class XMLImport extends DefaultHandler {
         instance.dbs.createAllTables(MySQL.getConnection(), instance.log);
 
         if (instance.log != null) {
-            instance.log.append("Инициализация завершена.\n");
+            instance.log.append("�?нициализация завершена.\n");
         }
     }
 
@@ -140,7 +139,7 @@ public class XMLImport extends DefaultHandler {
             // Данные по записям таблиц
             for (String tableName : dbs.structure.keySet()) {
                 if (qName.equalsIgnoreCase(tableName)) {
-                    // Импорт записей
+                    // �?мпорт записей
                     if (dictionaries 
                             || tableName.equals("PARTICIPANTS")
                             || tableName.equals("EGEEXTPARTICIPANTS")
@@ -148,7 +147,6 @@ public class XMLImport extends DefaultHandler {
                             || (attributes.getValue("SYS_GUID") != null && attributes.getValue("SYS_GUID").startsWith(MainForm.YEAR))) {
                         try {
                             String sql = dbs.getInsertScript(qName, attributes);
-                            try {
                                 statement.addBatch(sql);
                                 counter++;
                                 if (counter % 100 == 0) {
@@ -157,10 +155,7 @@ public class XMLImport extends DefaultHandler {
                                     }
                                     statement.executeBatch();
                                 }
-                            } catch (SQLException ex) {
-                                throw new IllegalStateException(ex);
-                            }
-                        } catch (ParseException ex) {
+                        } catch (Exception ex) {
                             throw new IllegalStateException(ex);
                         }
                     }

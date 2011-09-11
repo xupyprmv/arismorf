@@ -26,8 +26,8 @@ public class MySQL {
                 Class.forName("com.mysql.jdbc.Driver").newInstance();
                 dbConnection = DriverManager.getConnection("jdbc:mysql://localhost:3307/", "root", "");
                 Statement statement = dbConnection.createStatement();
-                statement.execute("CREATE DATABASE IF NOT EXISTS arismorf;");
-                statement.execute("SET NAMES cp1251;"); // TODO: сделать все MEMO BLOB'ами
+                statement.execute("CREATE DATABASE IF NOT EXISTS arismorf CHARACTER SET=cp1251;");
+                statement.execute("SET NAMES cp1251;");
                 statement.execute("USE arismorf;");
                 statement.close();
                 //DatabaseStructure.getInstance().createAllTables(dbConnection);
