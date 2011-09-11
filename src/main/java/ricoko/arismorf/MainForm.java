@@ -25,7 +25,7 @@ import ricoko.arismorf.extractors.ExtractorOsh5;
  */
 public class MainForm extends javax.swing.JFrame {
 
-    public static final String YEAR = "2010";
+    public static final String YEAR = "2011";
 
     /** Creates new form MainForm */
     public MainForm() {
