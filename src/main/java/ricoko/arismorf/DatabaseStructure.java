@@ -1,5 +1,6 @@
 package ricoko.arismorf;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -105,7 +106,7 @@ public class DatabaseStructure {
         return result.toString();
     }
 
-    public String getInsertScript(String tableName, Attributes values) throws ParseException {
+    public String getInsertScript(String tableName, Attributes values) throws ParseException, UnsupportedEncodingException {
         StringBuilder result = new StringBuilder();
         result.append("REPLACE INTO ").append(tableName).append(" (");
         boolean first = true;
@@ -137,6 +138,8 @@ public class DatabaseStructure {
         }
         result.append(");");
         return result.toString();
+//        return new String(result.toString().getBytes("UTF-8"), "Cp1251");
+//        return new String(result.toString().getBytes("UTF-8"), "Cp1251");
     }
 
     public void createAllTables(Connection connection, JTextArea log) throws SQLException {
