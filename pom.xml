@@ -4,7 +4,7 @@
     <groupId>ricoko</groupId>
     <artifactId>ricoko-arismorf</artifactId>
     <packaging>jar</packaging>
-    <version>0.3-SNAPSHOT</version>
+    <version>0.3</version>
     <name>ricoko-arismorf</name>
     <dependencies>
         <dependency>
