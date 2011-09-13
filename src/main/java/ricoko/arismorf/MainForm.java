@@ -7,8 +7,6 @@ package ricoko.arismorf;
 
 import java.awt.Desktop;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import ricoko.arismorf.extractors.ExtractorOsh1;
 import java.io.File;
 import java.sql.Connection;
@@ -249,7 +247,7 @@ private void importARISMOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 
                     @Override
                     public boolean accept(File pathname) {
-                        if (pathname.isFile()
+                        if (pathname.isDirectory() || pathname.isFile()
                                 && (pathname.getName().endsWith("xml")
                                 || pathname.getName().endsWith("XML"))) {
                             return true;
