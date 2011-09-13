@@ -62,6 +62,9 @@ public class MySQL {
 
             Map<Object, Object> options = new HashMap<Object, Object>();
             options.put("port", "3307");
+            options.put("basedir", dbFile.getAbsolutePath());
+            options.put("datadir", dbFile.getAbsolutePath()+"/data");
+            options.put("socket", dbFile.getAbsolutePath()+"/mysql.sock");
             mysql = new MysqldResource(dbFile);
             mysql.start("arismorf", options);
             //Thread.sleep(2000);
