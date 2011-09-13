@@ -74,7 +74,6 @@ public class ExcelExport {
         Row r = s.getRow(row - 1);
         Cell cell = r.getCell(col);
         return cell;
-        //cell.setCellValue(value); 
     }
 
     public void setValue(String xltFileName, int sheet, String col, int row, String value) throws FileNotFoundException, IOException {
@@ -98,12 +97,12 @@ public class ExcelExport {
     }
     private static final String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    private int convertColumnmIndex(String col) {
-        int result = 0;
-        for (int i = 0; i < col.length(); i++) {
-            result = result * 26 + alphabet.indexOf(col.substring(i, i + 1));
+    private static int convertColumnmIndex(String col) {
+        if (col.length()==1) {
+            return alphabet.indexOf(col.substring(0, 1));
+        } else {
+            return (alphabet.indexOf(col.substring(0, 1))+1) * 26 + alphabet.indexOf(col.substring(1, 2));
         }
-        return result;
     }
 
     public static String getSQLFromFile(String path) throws IOException {
