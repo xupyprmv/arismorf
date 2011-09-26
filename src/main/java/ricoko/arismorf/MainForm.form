@@ -135,7 +135,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="title" type="java.lang.String" value="&#x41a;&#x43e;&#x43d;&#x432;&#x435;&#x440;&#x442;&#x430;&#x442;&#x43e;&#x440;: &#x410;&#x420;&#x418;&#x421;&#x41c;&#x41e; &lt;-&gt; &#x41c;&#x41e;&#x420;&#x424; (&#x432;&#x435;&#x440;&#x441;&#x438;&#x44f; 0.1)"/>
+    <Property name="title" type="java.lang.String" value="&#x41a;&#x43e;&#x43d;&#x432;&#x435;&#x440;&#x442;&#x430;&#x442;&#x43e;&#x440;: &#x410;&#x420;&#x418;&#x421;&#x41c;&#x41e; &lt;-&gt; &#x41c;&#x41e;&#x420;&#x424; (&#x432;&#x435;&#x440;&#x441;&#x438;&#x44f; 0.5)"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="mainMenu"/>
